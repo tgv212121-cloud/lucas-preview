@@ -114288,9 +114288,9 @@ r=q+" - "+A.l(r)}return r},
 ga7U(){var s=this.b
 return s==null?"\xc0 planifier":B.Wz[A.mJ(s)-1]+" "+A.bY(s)+" "+B.i6[A.bb(s)-1]+", "+A.aZg(s)},
 Ru(a){var s=this.Rr(a)
-if(s>=30)return B.a8T
-if(s>=15)return B.a8S
-if(s>=5)return B.a8R
+if(s>=40)return B.a8T
+if(s>=20)return B.a8S
+if(s>=10)return B.a8R
 return B.ls},
 Rr(a){var s,r
 if(this.w!==B.qr||this.b==null)return 0
