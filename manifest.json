@@ -1,12 +1,12 @@
 {
-    "name": "interventions",
-    "short_name": "interventions",
+    "name": "Lucas",
+    "short_name": "Lucas",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#FFFFFF",
+    "theme_color": "#111111",
+    "description": "Gestion des interventions de sécurité : planning, rapports, suivi terrain.",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {
