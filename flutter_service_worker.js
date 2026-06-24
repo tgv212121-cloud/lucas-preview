@@ -1,26 +1,31 @@
 'use strict';
-// Service worker « kill switch ». Remplace l'ancien service worker resté en
-// cache sur les appareils : il vide les caches, se désinscrit lui-même, puis
-// recharge les onglets pour servir la version à jour (désormais sans cache).
-self.addEventListener('install', function (event) {
+
+self.addEventListener('install', () => {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', function (event) {
-  event.waitUntil((async function () {
-    try {
-      var keys = await caches.keys();
-      await Promise.all(keys.map(function (k) { return caches.delete(k); }));
-    } catch (e) {}
-    try {
-      await self.registration.unregister();
-    } catch (e) {}
-    try {
-      var clients = await self.clients.matchAll({ type: 'window' });
-      clients.forEach(function (c) { c.navigate(c.url); });
-    } catch (e) {}
-  })());
-});
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    (async () => {
+      try {
+        await self.registration.unregister();
+      } catch (e) {
+        console.warn('Failed to unregister the service worker:', e);
+      }
 
-// Aucune interception de requêtes : tout passe directement au réseau.
-self.addEventListener('fetch', function (event) {});
+      try {
+        const clients = await self.clients.matchAll({
+          type: 'window',
+        });
+        // Reload clients to ensure they are not using the old service worker.
+        clients.forEach((client) => {
+          if (client.url && 'navigate' in client) {
+            client.navigate(client.url);
+          }
+        });
+      } catch (e) {
+        console.warn('Failed to navigate some service worker clients:', e);
+      }
+    })()
+  );
+});
